@@ -1,0 +1,139 @@
+---
+title: "Trabalho Final - Felicidade Mundial"
+author: "Alexandre - Cesar - Domingos"
+date: "21 de maio de 2019"
+output: html_document
+theme: "flatly"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, eval = TRUE, message = FALSE)
+```
+
+install.packages("ggplot2")
+install.packages("forcats")
+install.packages("readr")
+install.packages("dplyr")
+install.packages("knitr")
+install.packages("DT")
+install.packages("sf")
+install.packages("spData")
+install.packages("maps")
+install.packages("ggmap")
+
+xx <- spData::world %>% 
+  st_as_sf()
+
+```{r}
+library(readr)
+library(dplyr)
+feliz <- read.csv('../data/felicidade_mundo.csv')
+```
+
+tabela com todos os dados
+```{r}
+library(DT)
+feliz %>% 
+  select(name, economic_liberty, government_spending, investment_freedom, index_year, happiness_score) %>% 
+  datatable(colnames = c('Nome Pais', 'indice de liberdade econômica', 'Gastos do governo', 'Liberdade para fazer investimentos', 'Ano', 'Score Felicidade'))
+```
+
+lista dos 10 paises mais feliz em 2015
+```{r}
+library(ggplot2)
+feliz %>% 
+  filter(index_year=='2015') %>% 
+  arrange(desc(happiness_score)) %>%
+  head(10) %>% 
+  ggplot(aes(x=name, y=happiness_score)) +
+  geom_bar(stat = 'identity')
+```
+
+lista dos 10 paises mais feliz em 2016
+```{r}
+library(ggplot2)
+feliz %>% 
+  filter(index_year=='2016') %>% 
+  arrange(desc(happiness_score)) %>%
+  head(10) %>% 
+  ggplot(aes(x=name, y=happiness_score)) +
+  geom_bar(stat = 'identity')
+```
+
+lista dos 10 paises mais feliz em 2017
+```{r}
+library(ggplot2)
+feliz %>% 
+  filter(index_year=='2017') %>% 
+  arrange(desc(happiness_score)) %>%
+  head(10) %>% 
+  ggplot(aes(x=name, y=happiness_score)) +
+  geom_bar(stat = 'identity')
+```
+
+
+
+
+
+lista dos 10 paises mais infelizes em 2015
+```{r}
+library(ggplot2)
+feliz %>% 
+  filter(index_year=='2015') %>% 
+  arrange(happiness_score) %>%
+  head(10) %>% 
+  ggplot(aes(x=name, y=happiness_score)) +
+  geom_bar(stat = 'identity')
+```
+
+lista dos 10 paises mais infelizes em 2016
+```{r}
+library(ggplot2)
+feliz %>% 
+  filter(index_year=='2016') %>% 
+  arrange(happiness_score) %>%
+  head(10) %>% 
+  ggplot(aes(x=name, y=happiness_score)) +
+  geom_bar(stat = 'identity')
+```
+
+
+lista dos 10 paises mais infelizes em 2017
+```{r}
+library(ggplot2)
+feliz %>% 
+  filter(index_year=='2017') %>% 
+  arrange(happiness_score) %>%
+  head(10) %>% 
+  ggplot(aes(x=name, y=happiness_score)) +
+  geom_bar(stat = 'identity')
+```
+
+
+a ideia é mostrar a relação dos paises mais felizes de cada ano e identificar um padão para essa felicidade
+
+library(ggplot2)
+feliz2015 <- feliz %>% 
+  filter(name=='Switzerland', index_year=='2015')
+
+feliz2016 <- feliz %>% 
+  filter(name=='Denmark', index_year=='2016')
+
+feliz2017 <- feliz %>% 
+  filter(name=='Norway', index_year=='2017')
+
+df = rbind(feliz2015,feliz2016,feliz2017)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
